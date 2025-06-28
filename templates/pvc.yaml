@@ -1,0 +1,17 @@
+{{- $releaseName := toString .Release.Name }}
+{{- range .Values.persistents }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "{{ $releaseName }}-{{ .persistent.name }}-pvc"
+  labels:
+    app: {{ $releaseName }}
+spec:
+  accessModes:
+    - {{ .persistent.accessMode }}
+  resources:
+    requests:
+      storage: {{ .persistent.size }}
+  storageClassName: {{ .persistent.storageClassName }}
+{{- end }}
