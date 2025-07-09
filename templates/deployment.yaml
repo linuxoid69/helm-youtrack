@@ -56,12 +56,32 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            - name: "data"
+              mountPath: "/opt/youtrack/data"
+            - name: "logs"
+              mountPath: "/opt/youtrack/logs"
+            - name: "conf"
+              mountPath: "/opt/youtrack/conf"
+            - name: "backups"
+              mountPath: "/opt/youtrack/backups"
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+        - name: "data"
+          persistentVolumeClaim:
+            claimName: "{{ .Release.Name }}-data-pvc"
+        - name: "conf"
+          persistentVolumeClaim:
+            claimName: "{{ .Release.Name }}-conf-pvc"
+        - name: "logs"
+          persistentVolumeClaim:
+            claimName: "{{ .Release.Name }}-logs-pvc"
+        - name: "backups"
+          persistentVolumeClaim:
+            claimName: "{{ .Release.Name }}-backups-pvc"
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}

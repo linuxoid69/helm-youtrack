@@ -125,30 +125,10 @@ persistents:
       size: 10Gi
       storageClassName: "standard"
 
-volumes:
-  - name: "data"
-    persistentVolumeClaim:
-      claimName: "data"
-  - name: "conf"
-    persistentVolumeClaim:
-      claimName: "conf"
-  - name: "logs"
-    persistentVolumeClaim:
-      claimName: "logs"
-  - name: "backups"
-    persistentVolumeClaim:
-      claimName: "backups"
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: "data"
-    mountPath: "/opt/youtrack/data"
-  - name: "logs"
-    mountPath: "/opt/youtrack/logs"
-  - name: "conf"
-    mountPath: "/opt/youtrack/conf"
-  - name: "backups"
-    mountPath: "/opt/youtrack/backups"
+volumeMounts: []
 
 nodeSelector: {}
 
